@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="la">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monachus Nicolaus</title>
+    
+    <!-- Uvozimo prelepe klasične fontove (Cinzel za ime, EB Garamond za tekst) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== OSNOVNI STILOVI ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        html, body {
+            background-color: #000000;
+            height: 100%;
+            width: 100%;
+            color: #ffffff;
+            font-family: 'EB Garamond', serif;
+            overflow: hidden; /* Sprečava skrolovanje */
+        }
+
+        /* ===== GLAVNI KONTEJNER ===== */
+        .stranica {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* ===== NASLOV (IME MONAHA) ===== */
+        .ime-monaha {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: 6px;
+            color: #e8e8e8; /* Blago srebrnkasta/bela boja */
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            /* Blagi srebrni sjaj */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== PODNASLOV (Malo latinskog teksta) ===== */
+        .podnaslov {
+            font-family: 'EB Garamond', serif;
+            font-size: 16px;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: #888888; /* Siva boja za kontrast */
+            margin-bottom: 60px;
+        }
+
+        /* ===== DISKRETNO DUGME ===== */
+        .dugme-monah {
+            display: inline-block;
+            color: #e8e8e8;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            padding: 15px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Veoma tanka, suptilna ivica */
+            border-radius: 5px; /* Blago zaobljene ivice, više monaški stil */
+            transition: all 0.5s ease;
+            text-transform: uppercase;
+            background-color: transparent;
+        }
+
+        .dugme-monah:active,
+        .dugme-monah:hover {
+            background-color: #e8e8e8;
+            color: #000000;
+            border-color: #e8e8e8;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stranica">
+        <!-- Ime monaha -->
+        <h1 class="ime-monaha">Monachus Nicolaus</h1>
+        
+        <!-- Latinski podnaslov -->
+        <p class="podnaslov">Servus Dei · Ora et Labora</p>
+        
+        <!-- Dugme (ako želiš da vodi negde, npr. na drugu stranicu) -->
+        <a href="#" class="dugme-monah">Saznaj više</a>
+    </div>
+
+</body>
+</html>
