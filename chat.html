@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <!-- OVO JE OBAVEZNO DA BI SAJT BIO CRN -->
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
@@ -16,8 +17,9 @@
     <div class="zaglavlje">
         <a href="index.html" class="nazad">←</a>
         <h1>Chat</h1>
-        <!-- DUGME ZA BRISANJE CELOG CHATA -->
-        <button id="obrisi-sve" title="Obriši sve poruke">🗑️</button>
+        
+        <!-- NOVO DUGME DELETE -->
+        <button id="obrisi-sve" title="Obriši sve poruke">DELETE</button>
     </div>
 
     <div id="poruke"></div>
@@ -116,7 +118,7 @@
             }
         });
 
-        // Brisanje CELOG četa (klik na kantu u zaglavlju)
+        // Brisanje CELOG četa (klik na DELETE)
         dugmeObrisiSve.addEventListener('click', () => {
             if (confirm("Da li si SIGURAN da želiš da obrišeš SVE poruke?")) {
                 remove(porukeRef)
