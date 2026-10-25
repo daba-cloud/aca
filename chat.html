@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aleksandar — Chat</title>
     
-    <!-- Fontovi -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- Povezivanje sa novim CSS fajlom -->
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
@@ -23,8 +21,8 @@
     <div id="poruke"></div>
 
     <div class="unos">
-        <input type="text" id="ime" placeholder="Ime..." maxlength="15">
-        <input type="text" id="tekst-poruke" placeholder="Napiši poruku..." maxlength="200">
+        <input type="text" id="ime" placeholder="Ime..." maxlength="15" autocomplete="off">
+        <input type="text" id="tekst-poruke" placeholder="Napiši poruku..." maxlength="200" autocomplete="off">
         <button id="posalji">Pošalji</button>
     </div>
 
@@ -32,7 +30,6 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getDatabase, ref, push, onValue, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 
-        // OVDE JE TVOJ URL
         const firebaseConfig = {
             databaseURL: "https://aleksandar-d48ba-default-rtdb.firebaseio.com"
         };
@@ -46,10 +43,27 @@
         const inputPoruka = document.getElementById('tekst-poruke');
         const kontejnerPoruka = document.getElementById('poruke');
 
+        // Pamćenje imena
+        const sacuvanoIme = localStorage.getItem('mojeIme');
+        if (sacuvanoIme) {
+            inputIme.value = sacuvanoIme;
+        }
+
+        inputIme.addEventListener('input', () => {
+            localStorage.setItem('mojeIme', inputIme.value.trim());
+        });
+
+        // Slanje poruke
         dugme.addEventListener('click', () => {
-            const ime = inputIme.value.trim() || "Anonim";
+            const ime = inputIme.value.trim();
             const tekst = inputPoruka.value.trim();
             
+            if (ime === "") {
+                alert("Molim te prvo upiši svoje ime!");
+                inputIme.focus();
+                return;
+            }
+
             if (tekst === "") return;
 
             push(porukeRef, {
@@ -65,20 +79,16 @@
             if (e.key === 'Enter') dugme.click();
         });
 
+        // Primanje poruka
         onValue(porukeRef, (snapshot) => {
             kontejnerPoruka.innerHTML = ""; 
-            const mojeIme = inputIme.value.trim() || "Anonim";
 
             snapshot.forEach((childSnapshot) => {
                 const podaci = childSnapshot.val();
                 const div = document.createElement('div');
-                div.className = 'poruka';
                 
-                if (podaci.ime === mojeIme) {
-                    div.classList.add('moja');
-                } else {
-                    div.classList.add('druga');
-                }
+                // SADA SVE PORUKE IMAJU ISTI STIL (leva strana)
+                div.className = 'poruka druga'; 
 
                 div.innerHTML = `<span class="ime-posiljaoca">${podaci.ime}</span>${podaci.tekst}`;
                 kontejnerPoruka.appendChild(div);
