@@ -1,148 +1,25 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    background-color: #000000;
-    height: 100%;
-    width: 100%;
-    color: #d4af37; /* Zlatna boja */
-    font-family: 'EB Garamond', serif;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* Zaglavlje */
-.zaglavlje {
-    text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    background-color: #000000;
-    z-index: 10;
-    position: relative;
-}
-
-.zaglavlje h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 22px; /* Povećano sa 20px */
-    letter-spacing: 4px; /* Malo veći razmak */
-    text-transform: uppercase;
-    color: #d4af37;
-    margin: 0;
-}
-
-.nazad {
-    position: absolute;
-    left: 20px;
-    top: 24px;
-    color: #666;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-/* Prostor za poruke */
-#poruke {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px; /* Malo veći razmak između poruka */
-}
-
-/* STIL PORUKE */
-.poruka {
-    max-width: 90%;
-    padding: 5px 10px;
-    font-size: 22px; /* ZNATNO POVEĆANO sa 18px */
-    line-height: 1.6; /* Lepši razmak između redova */
-    letter-spacing: 0.5px; /* Elegantniji razmak između slova */
-    word-wrap: break-word;
-    text-align: center;
-    align-self: center;
-    transition: opacity 0.3s ease;
-}
-
-/* Efekat kada pređeš mišem ili držiš prst (nagoveštava da se može kliknuti) */
-.poruka:active {
-    opacity: 0.5; 
-}
-
-.poruka.moja, .poruka.druga {
-    background-color: transparent;
-    border: none;
-}
-
-/* STIL IMENA */
-.ime-posiljaoca {
-    font-family: 'Cinzel', serif;
-    font-size: 13px; /* Povećano sa 11px */
-    color: rgba(212, 175, 55, 0.4);
-    margin-bottom: 8px; /* Malo veći razmak do teksta */
-    display: block;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 3px; /* Veći razmak između slova imena */
-}
-
-/* Unos poruke */
-.unos {
-    display: flex;
-    padding: 15px;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-    background-color: #000000;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Polje za ime */
-#ime {
-    width: 55px; /* Malo prošireno da stane veći font */
-    background: transparent;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: #d4af37;
-    padding: 10px 5px;
-    font-family: 'EB Garamond', serif;
-    font-size: 16px; /* Povećano sa 14px */
-    outline: none;
-    text-align: center;
-    border-radius: 4px;
-}
-
-/* Polje za tekst poruke */
-#tekst-poruke {
-    flex: 1;
-    background: transparent;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: #d4af37;
-    padding: 10px;
-    font-family: 'EB Garamond', serif;
-    font-size: 18px; /* Povećano sa 16px */
-    outline: none;
-    text-align: center;
-    border-radius: 4px;
-}
-
-#tekst-poruke::placeholder, #ime::placeholder {
-    color: rgba(212, 175, 55, 0.3);
-}
-
-/* Dugme Pošalji */
+/* Dugme Pošalji - SUŽENO I PORAVNATO */
 #posalji {
     background-color: transparent;
     color: #d4af37;
     border: 1px solid rgba(212, 175, 55, 0.5);
-    padding: 10px 15px;
+    
+    /* OVO JE KLJUČNO ZA SUŽAVANJE I VISINU */
+    padding: 0 12px;       /* Nema paddinga gore/dole, samo 12px sa strane */
+    height: 46px;          /* Fiksiramo visinu da se savršeno poravna sa inputima */
+    
     font-family: 'Cinzel', serif;
-    font-size: 13px; /* Povećano sa 11px */
+    font-size: 12px;       /* Malo manji font da lepše stane */
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 4px;
     white-space: nowrap;
+    
+    /* Poravnavanje teksta unutar dugmeta */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #posalji:active {
