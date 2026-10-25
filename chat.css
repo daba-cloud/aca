@@ -27,8 +27,8 @@ html, body {
 
 .zaglavlje h1 {
     font-family: 'Cinzel', serif;
-    font-size: 20px;
-    letter-spacing: 3px;
+    font-size: 22px; /* Povećano sa 20px */
+    letter-spacing: 4px; /* Malo veći razmak */
     text-transform: uppercase;
     color: #d4af37;
     margin: 0;
@@ -50,15 +50,16 @@ html, body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px; /* Malo veći razmak između poruka */
 }
 
 /* STIL PORUKE */
 .poruka {
     max-width: 90%;
     padding: 5px 10px;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 22px; /* ZNATNO POVEĆANO sa 18px */
+    line-height: 1.6; /* Lepši razmak između redova */
+    letter-spacing: 0.5px; /* Elegantniji razmak između slova */
     word-wrap: break-word;
     text-align: center;
     align-self: center;
@@ -78,13 +79,13 @@ html, body {
 /* STIL IMENA */
 .ime-posiljaoca {
     font-family: 'Cinzel', serif;
-    font-size: 11px;
+    font-size: 13px; /* Povećano sa 11px */
     color: rgba(212, 175, 55, 0.4);
-    margin-bottom: 6px;
+    margin-bottom: 8px; /* Malo veći razmak do teksta */
     display: block;
     text-transform: uppercase;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 3px; /* Veći razmak između slova imena */
 }
 
 /* Unos poruke */
@@ -99,13 +100,13 @@ html, body {
 
 /* Polje za ime */
 #ime {
-    width: 50px;
+    width: 55px; /* Malo prošireno da stane veći font */
     background: transparent;
     border: 1px solid rgba(212, 175, 55, 0.3);
     color: #d4af37;
     padding: 10px 5px;
     font-family: 'EB Garamond', serif;
-    font-size: 14px;
+    font-size: 16px; /* Povećano sa 14px */
     outline: none;
     text-align: center;
     border-radius: 4px;
@@ -119,7 +120,7 @@ html, body {
     color: #d4af37;
     padding: 10px;
     font-family: 'EB Garamond', serif;
-    font-size: 16px;
+    font-size: 18px; /* Povećano sa 16px */
     outline: none;
     text-align: center;
     border-radius: 4px;
@@ -134,9 +135,9 @@ html, body {
     background-color: transparent;
     color: #d4af37;
     border: 1px solid rgba(212, 175, 55, 0.5);
-    padding: 10px 12px;
+    padding: 10px 15px;
     font-family: 'Cinzel', serif;
-    font-size: 11px;
+    font-size: 13px; /* Povećano sa 11px */
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s;
