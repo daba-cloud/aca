@@ -8,8 +8,7 @@ html, body {
     background-color: #000000;
     height: 100%;
     width: 100%;
-    /* Zlatna boja za osnovni tekst */
-    color: #d4af37; 
+    color: #d4af37; /* Zlatna boja */
     font-family: 'EB Garamond', serif;
     display: flex;
     flex-direction: column;
@@ -20,7 +19,7 @@ html, body {
 .zaglavlje {
     text-align: center;
     padding: 20px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Zlatna linija */
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     background-color: #000000;
     z-index: 10;
     position: relative;
@@ -31,7 +30,7 @@ html, body {
     font-size: 20px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #d4af37; /* Zlatni naslov */
+    color: #d4af37;
     margin: 0;
 }
 
@@ -51,34 +50,40 @@ html, body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Malo veći razmak između poruka */
+    gap: 20px;
 }
 
-/* STIL PORUKE - Bez okvira, centrirano, veći font */
+/* STIL PORUKE */
 .poruka {
     max-width: 90%;
     padding: 5px 10px;
-    font-size: 18px; /* Veća slova */
+    font-size: 18px;
     line-height: 1.5;
     word-wrap: break-word;
-    text-align: center; /* Centriran tekst */
-    align-self: center; /* Centrira ceo oblačić na sredinu ekrana */
+    text-align: center;
+    align-self: center;
+    transition: opacity 0.3s ease;
+}
+
+/* Efekat kada pređeš mišem ili držiš prst (nagoveštava da se može kliknuti) */
+.poruka:active {
+    opacity: 0.5; 
 }
 
 .poruka.moja, .poruka.druga {
-    background-color: transparent; /* Nema pozadine */
-    border: none; /* NEMA OKVIRA */
+    background-color: transparent;
+    border: none;
 }
 
-/* STIL IMENA - Velika slova, providno, zlatno */
+/* STIL IMENA */
 .ime-posiljaoca {
     font-family: 'Cinzel', serif;
     font-size: 11px;
-    color: rgba(212, 175, 55, 0.4); /* Zlatna boja sa 40% providnosti */
+    color: rgba(212, 175, 55, 0.4);
     margin-bottom: 6px;
     display: block;
-    text-transform: uppercase; /* Velika slova */
-    font-weight: 600; /* Bold */
+    text-transform: uppercase;
+    font-weight: 600;
     letter-spacing: 2px;
 }
 
@@ -89,12 +94,12 @@ html, body {
     border-top: 1px solid rgba(212, 175, 55, 0.2);
     background-color: #000000;
     align-items: center;
-    gap: 8px; /* Razmak između polja */
+    gap: 8px;
 }
 
-/* Polje za ime - DUPLO KRAĆE */
+/* Polje za ime */
 #ime {
-    width: 50px; /* Suženo sa 90px na 50px */
+    width: 50px;
     background: transparent;
     border: 1px solid rgba(212, 175, 55, 0.3);
     color: #d4af37;
@@ -116,27 +121,27 @@ html, body {
     font-family: 'EB Garamond', serif;
     font-size: 16px;
     outline: none;
-    text-align: center; /* Centriran tekst i ovde */
+    text-align: center;
     border-radius: 4px;
 }
 
 #tekst-poruke::placeholder, #ime::placeholder {
-    color: rgba(212, 175, 55, 0.3); /* Providni placeholder */
+    color: rgba(212, 175, 55, 0.3);
 }
 
-/* Dugme Pošalji - SUŽENO */
+/* Dugme Pošalji */
 #posalji {
     background-color: transparent;
     color: #d4af37;
     border: 1px solid rgba(212, 175, 55, 0.5);
-    padding: 10px 12px; /* Suženo sa strane */
+    padding: 10px 12px;
     font-family: 'Cinzel', serif;
     font-size: 11px;
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 4px;
-    white-space: nowrap; /* Da tekst ne prelazi u novi red */
+    white-space: nowrap;
 }
 
 #posalji:active {
