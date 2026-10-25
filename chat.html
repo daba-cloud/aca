@@ -16,6 +16,8 @@
     <div class="zaglavlje">
         <a href="index.html" class="nazad">←</a>
         <h1>Chat</h1>
+        <!-- DUGME ZA BRISANJE CELOG CHATA -->
+        <button id="obrisi-sve" title="Obriši sve poruke">🗑️</button>
     </div>
 
     <div id="poruke"></div>
@@ -28,7 +30,6 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        // DODATO: 'remove' za brisanje poruka
         import { getDatabase, ref, push, onValue, serverTimestamp, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 
         const firebaseConfig = {
@@ -40,6 +41,7 @@
         const porukeRef = ref(db, 'soba-aleksandar');
 
         const dugme = document.getElementById('posalji');
+        const dugmeObrisiSve = document.getElementById('obrisi-sve');
         const inputIme = document.getElementById('ime');
         const inputPoruka = document.getElementById('tekst-poruke');
         const kontejnerPoruka = document.getElementById('poruke');
@@ -86,12 +88,10 @@
 
             snapshot.forEach((childSnapshot) => {
                 const podaci = childSnapshot.val();
-                const kljucPoruke = childSnapshot.key; // Uzimamo ID poruke iz baze
+                const kljucPoruke = childSnapshot.key;
                 
                 const div = document.createElement('div');
                 div.className = 'poruka druga'; 
-                
-                // Dodajemo data-id atribut da znamo koju poruku brišemo
                 div.setAttribute('data-id', kljucPoruke);
 
                 div.innerHTML = `<span class="ime-posiljaoca">${podaci.ime}</span>${podaci.tekst}`;
@@ -101,29 +101,29 @@
             kontejnerPoruka.scrollTop = kontejnerPoruka.scrollHeight;
         });
 
-        // FUNKCIJA ZA BRISANJE PORUKE (Klikom na poruku)
+        // Brisanje pojedinačne poruke (klik na poruku)
         kontejnerPoruka.addEventListener('click', (e) => {
-            // Nalazimo roditeljski element (div poruke) na koji je kliknuto
             const porukaDiv = e.target.closest('.poruka');
-            
             if (porukaDiv) {
                 const idPoruke = porukaDiv.getAttribute('data-id');
-                
                 if (idPoruke) {
-                    // Pitamo korisnika za potvrdu pre brisanja
                     if (confirm("Da li želiš da obrišeš ovu poruku?")) {
                         const porukaRef = ref(db, `soba-aleksandar/${idPoruke}`);
-                        
                         remove(porukaRef)
-                            .then(() => {
-                                console.log("Poruka uspešno obrisana.");
-                            })
-                            .catch((error) => {
-                                console.error("Greška pri brisanju: ", error);
-                                alert("Došlo je do greške prilikom brisanja.");
-                            });
+                            .catch((error) => console.error("Greška: ", error));
                     }
                 }
+            }
+        });
+
+        // Brisanje CELOG četa (klik na kantu u zaglavlju)
+        dugmeObrisiSve.addEventListener('click', () => {
+            if (confirm("Da li si SIGURAN da želiš da obrišeš SVE poruke?")) {
+                remove(porukeRef)
+                    .catch((error) => {
+                        console.error("Greška: ", error);
+                        alert("Došlo je do greške.");
+                    });
             }
         });
     </script>
