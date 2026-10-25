@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aleksandar — Chat</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            background-color: #000000;
+            height: 100%;
+            width: 100%;
+            color: #e8e8e8;
+            font-family: 'EB Garamond', serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Zaglavlje */
+        .zaglavlje {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #000000;
+            z-index: 10;
+        }
+        .zaglavlje h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #e8e8e8;
+        }
+        .nazad {
+            position: absolute;
+            left: 20px;
+            top: 24px;
+            color: #666;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        /* Prostor za poruke */
+        #poruke {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .poruka {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .poruka.moja {
+            align-self: flex-end;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+        }
+
+        .poruka.druga {
+            align-self: flex-start;
+            background-color: transparent;
+            border: 1px solid #444;
+        }
+
+        .ime-posiljaoca {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Unos poruke */
+        .unos {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #000000;
+        }
+
+        #ime {
+            width: 100px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #e8e8e8;
+            padding: 10px;
+            font-family: 'EB Garamond', serif;
+            font-size: 14px;
+            outline: none;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        #tekst-poruke {
+            flex: 1;
+            background: transparent;
+            border: 1px solid #333;
+            color: #e8e8e8;
+            padding: 10px;
+            font-family: 'EB Garamond', serif;
+            font-size: 16px;
+            outline: none;
+            border-radius: 4px;
+        }
+
+        #posalji {
+            background-color: transparent;
+            color: #e8e8e8;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0 20px;
+            margin-left: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        #posalji:active {
+            background-color: #e8e8e8;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="zaglavlje">
+        <a href="index.html" class="nazad">←</a>
+        <h1>Chat</h1>
+    </div>
+
+    <div id="poruke"></div>
+
+    <div class="unos">
+        <input type="text" id="ime" placeholder="Ime..." maxlength="15">
+        <input type="text" id="tekst-poruke" placeholder="Napiši poruku..." maxlength="200">
+        <button id="posalji">Pošalji</button>
+    </div>
+
+    <!-- OVDE JE FIREBASE SKRIPTA -->
+    <script type="module">
+        // 1. UVOZIMO FIREBASE
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getDatabase, ref, push, onValue, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+
+        // 2. KONFIGURACIJA (OVDE OBAVEZNO ZALEPI SVOJ URL)
+        const firebaseConfig = {
+            databaseURL: "https://aleksandar-d48ba-default-rtdb.firebaseio.com/" // <--- ZAMENI OVO
+        };
+
+        // 3. INICIJALIZACIJA
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const porukeRef = ref(db, 'soba-aleksandar');
+
+        // 4. SLANJE PORUKE
+        const dugme = document.getElementById('posalji');
+        const inputIme = document.getElementById('ime');
+        const inputPoruka = document.getElementById('tekst-poruke');
+        const kontejnerPoruka = document.getElementById('poruke');
+
+        dugme.addEventListener('click', () => {
+            const ime = inputIme.value.trim() || "Anonim";
+            const tekst = inputPoruka.value.trim();
+            
+            if (tekst === "") return;
+
+            push(porukeRef, {
+                ime: ime,
+                tekst: tekst,
+                vreme: serverTimestamp()
+            });
+
+            inputPoruka.value = ""; // Očisti input
+        });
+
+        // Omogući slanje na Enter
+        inputPoruka.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') dugme.click();
+        });
+
+        // 5. PRIMANJE PORUKA U REALNOM VREMENU
+        onValue(porukeRef, (snapshot) => {
+            kontejnerPoruka.innerHTML = ""; // Očisti pre prikaza
+            const mojeIme = inputIme.value.trim() || "Anonim";
+
+            snapshot.forEach((childSnapshot) => {
+                const podaci = childSnapshot.val();
+                const div = document.createElement('div');
+                div.className = 'poruka';
+                
+                // Ako je moja poruka, stavi je desno
+                if (podaci.ime === mojeIme) {
+                    div.classList.add('moja');
+                } else {
+                    div.classList.add('druga');
+                }
+
+                div.innerHTML = `<span class="ime-posiljaoca">${podaci.ime}</span>${podaci.tekst}`;
+                kontejnerPoruka.appendChild(div);
+            });
+
+            // Skroluj na dno
+            kontejnerPoruka.scrollTop = kontejnerPoruka.scrollHeight;
+        });
+    </script>
+
+</body>
+</html>
