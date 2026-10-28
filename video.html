@@ -20,36 +20,30 @@
             background-color: #000000;
             height: 100%;
             width: 100%;
-            color: #ffffff; /* BELA BOJA KAO NA INDEXU */
+            color: #ffffff;
             font-family: 'EB Garamond', serif;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* Zaglavlje */
+        /* Zaglavlje - sada ima samo strelicu za nazad */
         .zaglavlje {
             text-align: center;
             padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bela providna linija */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             background-color: #000000;
             z-index: 10;
             position: relative;
+            height: 65px; /* Fiksna visina da ne bi "skakalo" */
         }
 
-        .zaglavlje h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 22px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #ffffff; /* BELI NASLOV */
-            margin: 0;
-        }
+        /* Naslov je obrisan, ali ostavljamo prostor da strelica bude na svom mestu */
 
         .nazad {
             position: absolute;
             left: 20px;
-            top: 24px;
+            top: 20px; /* Malo korigovano da bude na sredini zaglavlja */
             color: #666;
             text-decoration: none;
             font-size: 20px;
@@ -72,13 +66,13 @@
             max-width: 800px;
             aspect-ratio: 16 / 9;
             background-color: #111;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Bela providna ivica */
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); /* Bela blaga senka */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
         }
 
         .plejer-okvir iframe {
@@ -100,7 +94,7 @@
             flex: 1;
             height: 50px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Bela providna ivica */
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: #ffffff;
             padding: 10px 15px;
             font-family: 'EB Garamond', serif;
@@ -110,8 +104,9 @@
             text-align: center;
         }
 
+        /* Placeholder je sada prazan, ali ostavljamo stil ako ga nekad vratiš */
         #link-input::placeholder {
-            color: rgba(255, 255, 255, 0.3); /* Providni beli tekst */
+            color: rgba(255, 255, 255, 0.3);
             font-style: italic;
         }
 
@@ -131,8 +126,8 @@
         }
 
         #pusti-dugme:hover, #pusti-dugme:active {
-            background-color: #ffffff; /* Bela pozadina na klik/hover */
-            color: #000000; /* Crna slova */
+            background-color: #ffffff;
+            color: #000000;
         }
 
         /* Prilagođavanje za mobilne telefone */
@@ -153,16 +148,17 @@
 
     <div class="zaglavlje">
         <a href="index.html" class="nazad">←</a>
-        <h1>Video</h1>
+        <!-- Reč VIDEO je uspešno obrisana -->
     </div>
 
     <div class="video-kontejner">
-        <!-- Prazan okvir za plejer (bez teksta) -->
+        <!-- Prazan okvir za plejer -->
         <div class="plejer-okvir" id="plejer"></div>
 
         <!-- Polje za unos linka -->
         <div class="unos-linka">
-            <input type="text" id="link-input" placeholder="Zalepi YouTube link ovde..." autocomplete="off">
+            <!-- Tekst "Zalepi YouTube link ovde..." je obrisan (placeholder je prazan) -->
+            <input type="text" id="link-input" placeholder="" autocomplete="off">
             <button id="pusti-dugme">PLAY</button>
         </div>
     </div>
@@ -176,11 +172,11 @@
             const link = inputLink.value.trim();
             
             if (link === "") {
+                // Ostavio sam alert da te upozori ako slučajno klikneš prazno
                 alert("Zalepi neki YouTube link prvo!");
                 return;
             }
 
-            // Funkcija koja vadi ID videa iz raznih YouTube formata
             let videoId = null;
 
             if (link.includes('youtube.com/watch?v=')) {
@@ -196,7 +192,6 @@
                 videoId = link.split('embed/')[1]?.split('?')[0];
             }
 
-            // Ako je pronađen ID, učitavamo video
             if (videoId) {
                 plejer.innerHTML = `
                     <iframe 
