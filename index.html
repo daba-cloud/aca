@@ -57,18 +57,18 @@
             font-style: italic;
             letter-spacing: 2px;
             color: #888888;
-            margin-bottom: 50px;
+            margin-bottom: 40px; /* Malo smanjeno da bi sve stalo sa 3 dugmeta */
         }
 
         /* ===== KONTEJNER ZA DUGMAD ===== */
         .dugmad-kontejner {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Razmak između PORTAL i CHAT dugmeta */
+            gap: 12px; /* Malo manji razmak između dugmadi */
             align-items: center;
         }
 
-        /* ===== STIL DUGMADI (Zajednički za PORTAL i CHAT) ===== */
+        /* ===== STIL DUGMADI ===== */
         .dugme-monah {
             display: inline-block;
             color: #e8e8e8;
@@ -83,7 +83,7 @@
             transition: all 0.5s ease;
             text-transform: uppercase;
             background-color: transparent;
-            min-width: 200px; /* Da oba dugmeta budu iste širine */
+            min-width: 200px; /* Da sva dugmad budu iste širine */
         }
 
         .dugme-monah:active,
@@ -110,9 +110,11 @@
             <!-- Dugme Portal -->
             <a href="ulaz.html" class="dugme-monah">Portal</a>
             
-            <!-- NOVO: Dugme Chat -->
-            <!-- Napravićemo da vodi na stranicu chat.html koju ćemo kasnije napraviti -->
+            <!-- Dugme Chat -->
             <a href="chat.html" class="dugme-monah">Chat</a>
+
+            <!-- NOVO: Dugme Video -->
+            <a href="video.html" class="dugme-monah">Video</a>
         </div>
     </div>
 
