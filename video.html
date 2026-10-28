@@ -20,18 +20,18 @@
             background-color: #000000;
             height: 100%;
             width: 100%;
-            color: #d4af37;
+            color: #ffffff; /* BELA BOJA KAO NA INDEXU */
             font-family: 'EB Garamond', serif;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* Zaglavlje - isto kao na četu */
+        /* Zaglavlje */
         .zaglavlje {
             text-align: center;
             padding: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bela providna linija */
             background-color: #000000;
             z-index: 10;
             position: relative;
@@ -42,7 +42,7 @@
             font-size: 22px;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: #d4af37;
+            color: #ffffff; /* BELI NASLOV */
             margin: 0;
         }
 
@@ -70,30 +70,21 @@
         .plejer-okvir {
             width: 100%;
             max-width: 800px;
-            aspect-ratio: 16 / 9; /* Čuva proporcije videa */
+            aspect-ratio: 16 / 9;
             background-color: #111;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Bela providna ivica */
             border-radius: 8px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); /* Bela blaga senka */
         }
 
         .plejer-okvir iframe {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        /* Poruka kada nema videa */
-        .prazno-stanje {
-            color: rgba(212, 175, 55, 0.3);
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            font-size: 14px;
-            text-transform: uppercase;
         }
 
         /* Donji deo za unos linka */
@@ -109,8 +100,8 @@
             flex: 1;
             height: 50px;
             background: transparent;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: #d4af37;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Bela providna ivica */
+            color: #ffffff;
             padding: 10px 15px;
             font-family: 'EB Garamond', serif;
             font-size: 16px;
@@ -120,14 +111,14 @@
         }
 
         #link-input::placeholder {
-            color: rgba(212, 175, 55, 0.3);
+            color: rgba(255, 255, 255, 0.3); /* Providni beli tekst */
             font-style: italic;
         }
 
         #pusti-dugme {
             background-color: transparent;
-            color: #d4af37;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             height: 50px;
             padding: 0 25px;
             font-family: 'Cinzel', serif;
@@ -140,8 +131,8 @@
         }
 
         #pusti-dugme:hover, #pusti-dugme:active {
-            background-color: #d4af37;
-            color: #000;
+            background-color: #ffffff; /* Bela pozadina na klik/hover */
+            color: #000000; /* Crna slova */
         }
 
         /* Prilagođavanje za mobilne telefone */
@@ -166,15 +157,13 @@
     </div>
 
     <div class="video-kontejner">
-        <!-- Ovde će se učitati video -->
-        <div class="plejer-okvir" id="plejer">
-            <span class="prazno-stanje">Zalepi YouTube link ispod</span>
-        </div>
+        <!-- Prazan okvir za plejer (bez teksta) -->
+        <div class="plejer-okvir" id="plejer"></div>
 
         <!-- Polje za unos linka -->
         <div class="unos-linka">
             <input type="text" id="link-input" placeholder="Zalepi YouTube link ovde..." autocomplete="off">
-            <button id="pusti-dugme">PUSTI</button>
+            <button id="pusti-dugme">PLAY</button>
         </div>
     </div>
 
@@ -194,19 +183,15 @@
             // Funkcija koja vadi ID videa iz raznih YouTube formata
             let videoId = null;
 
-            // 1. Standardni link: youtube.com/watch?v=ID
             if (link.includes('youtube.com/watch?v=')) {
                 videoId = link.split('v=')[1]?.split('&')[0];
             } 
-            // 2. Kratki link: youtu.be/ID
             else if (link.includes('youtu.be/')) {
                 videoId = link.split('youtu.be/')[1]?.split('?')[0];
             }
-            // 3. Shorts link: youtube.com/shorts/ID
             else if (link.includes('youtube.com/shorts/')) {
                 videoId = link.split('shorts/')[1]?.split('?')[0];
             }
-            // 4. Embed link: youtube.com/embed/ID
             else if (link.includes('youtube.com/embed/')) {
                 videoId = link.split('embed/')[1]?.split('?')[0];
             }
@@ -221,17 +206,14 @@
                         allowfullscreen>
                     </iframe>
                 `;
-                // Opciono: Očisti polje nakon puštanja
                 inputLink.value = "";
             } else {
                 alert("Link nije prepoznat. Molim te zalepi ispravan YouTube link.");
             }
         }
 
-        // Klik na dugme
         dugmePusti.addEventListener('click', pustiVideo);
 
-        // Pritiskom na Enter u polju za link
         inputLink.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 pustiVideo();
