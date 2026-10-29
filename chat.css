@@ -8,7 +8,7 @@ html, body {
     background-color: #000000;
     height: 100%;
     width: 100%;
-    color: #ffffff; /* BELA BOJA */
+    color: #ffffff;
     font-family: 'EB Garamond', serif;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ html, body {
 .zaglavlje {
     text-align: center;
     padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bela providna linija */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     background-color: #000000;
     z-index: 10;
     position: relative;
@@ -30,26 +30,41 @@ html, body {
     font-size: 22px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #ffffff; /* BELI NASLOV */
+    color: #ffffff;
     margin: 0;
 }
 
-.nazad {
+/* NOVO DUGME HOME (Levi ugao) */
+.nav-home {
     position: absolute;
     left: 20px;
-    top: 24px;
-    color: #666;
+    top: 18px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
     text-decoration: none;
-    font-size: 20px;
+    transition: all 0.3s;
 }
 
-/* DUGME DELETE U ZAGLAVLJU */
+.nav-home:hover, .nav-home:active {
+    background-color: #ffffff;
+    color: #000;
+    border-color: #ffffff;
+}
+
+/* DUGME DELETE U ZAGLAVLJU (Desni ugao) */
 #obrisi-sve {
     position: absolute;
     right: 20px;
     top: 18px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4); /* Bela providna ivica */
+    border: 1px solid rgba(255, 255, 255, 0.4);
     color: #ffffff;
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -102,7 +117,7 @@ html, body {
 .ime-posiljaoca {
     font-family: 'Cinzel', serif;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.4); /* Providna bela boja */
+    color: rgba(255, 255, 255, 0.4);
     margin-bottom: 8px;
     display: block;
     text-transform: uppercase;
@@ -114,7 +129,7 @@ html, body {
 .unos {
     display: flex;
     padding: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Bela linija */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     background-color: #000000;
     align-items: center;
     gap: 8px;
@@ -125,7 +140,7 @@ html, body {
     width: 55px;
     height: 46px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Bela ivica */
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
     padding: 10px 5px;
     font-family: 'EB Garamond', serif;
@@ -140,7 +155,7 @@ html, body {
     flex: 1;
     height: 46px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Bela ivica */
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
     padding: 10px;
     font-family: 'EB Garamond', serif;
@@ -151,14 +166,14 @@ html, body {
 }
 
 #tekst-poruke::placeholder, #ime::placeholder {
-    color: rgba(255, 255, 255, 0.3); /* Providni beli placeholder */
+    color: rgba(255, 255, 255, 0.3);
 }
 
 /* Dugme Pošalji */
 #posalji {
     background-color: transparent;
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Bela ivica */
+    border: 1px solid rgba(255, 255, 255, 0.5);
     height: 46px;
     padding: 0 15px;
     font-family: 'Cinzel', serif;
