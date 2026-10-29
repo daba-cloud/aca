@@ -27,26 +27,38 @@
             overflow: hidden;
         }
 
-        /* Zaglavlje - sada ima samo strelicu za nazad */
+        /* Zaglavlje sa navigacijom */
         .zaglavlje {
-            text-align: center;
-            padding: 20px;
+            display: flex;
+            justify-content: center; /* Centrira dugmad */
+            align-items: center;
+            padding: 15px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             background-color: #000000;
             z-index: 10;
-            position: relative;
-            height: 65px; /* Fiksna visina da ne bi "skakalo" */
+            gap: 15px; /* Razmak između dugmadi */
         }
 
-        /* Naslov je obrisan, ali ostavljamo prostor da strelica bude na svom mestu */
-
-        .nazad {
-            position: absolute;
-            left: 20px;
-            top: 20px; /* Malo korigovano da bude na sredini zaglavlja */
-            color: #666;
+        /* Stil za dugmad u navigaciji */
+        .nav-dugme {
+            color: #ffffff;
             text-decoration: none;
-            font-size: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            white-space: nowrap;
+        }
+
+        .nav-dugme:hover, .nav-dugme:active {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         /* Glavni kontejner za plejer */
@@ -104,12 +116,6 @@
             text-align: center;
         }
 
-        /* Placeholder je sada prazan, ali ostavljamo stil ako ga nekad vratiš */
-        #link-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            font-style: italic;
-        }
-
         #pusti-dugme {
             background-color: transparent;
             color: #ffffff;
@@ -141,14 +147,23 @@
             .plejer-okvir {
                 border-radius: 4px;
             }
+            /* Na mobilnom malo smanjujemo dugmad da stanu u jedan red */
+            .nav-dugme {
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+            .zaglavlje {
+                gap: 8px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="zaglavlje">
-        <a href="index.html" class="nazad">←</a>
-        <!-- Reč VIDEO je uspešno obrisana -->
+        <a href="index.html" class="nav-dugme">Home</a>
+        <a href="ulaz.html" class="nav-dugme">Portal</a>
+        <a href="chat.html" class="nav-dugme">Chat</a>
     </div>
 
     <div class="video-kontejner">
@@ -157,7 +172,6 @@
 
         <!-- Polje za unos linka -->
         <div class="unos-linka">
-            <!-- Tekst "Zalepi YouTube link ovde..." je obrisan (placeholder je prazan) -->
             <input type="text" id="link-input" placeholder="" autocomplete="off">
             <button id="pusti-dugme">PLAY</button>
         </div>
@@ -172,7 +186,6 @@
             const link = inputLink.value.trim();
             
             if (link === "") {
-                // Ostavio sam alert da te upozori ako slučajno klikneš prazno
                 alert("Zalepi neki YouTube link prvo!");
                 return;
             }
