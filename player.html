@@ -3,150 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aleksandar — Player</title>
+    <title>Aleksandar — Univerzalni Plejer</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body {
-            background-color: #000000;
-            height: 100%;
-            width: 100%;
-            color: #ffffff;
-            font-family: 'EB Garamond', serif;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            background-color: #000000; height: 100%; width: 100%; color: #ffffff;
+            font-family: 'EB Garamond', serif; display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* Zaglavlje sa navigacijom */
+        /* Zaglavlje */
         .zaglavlje {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: #000000;
-            z-index: 10;
-            gap: 15px;
-            height: 60px;
+            display: flex; justify-content: center; align-items: center; padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); background-color: #000000; z-index: 10; gap: 15px; height: 60px;
         }
-
         .nav-dugme {
-            color: #ffffff;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 0 15px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            background-color: transparent;
-            white-space: nowrap;
+            color: #ffffff; text-decoration: none; font-family: 'Cinzel', serif; font-size: 12px;
+            letter-spacing: 2px; text-transform: uppercase; padding: 0 15px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; transition: all 0.3s ease;
+            background-color: transparent; white-space: nowrap;
         }
-
-        .nav-dugme:hover, .nav-dugme:active {
-            background-color: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
+        .nav-dugme:hover, .nav-dugme:active { background-color: #ffffff; color: #000000; border-color: #ffffff; }
 
         /* Glavni kontejner */
         .video-kontejner {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            gap: 20px;
+            flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px;
+            gap: 20px; overflow-y: auto;
         }
 
-        /* Okvir za video plejer */
+        /* Tabovi (YouTube / Lokalni) */
+        .tabovi {
+            display: flex; gap: 10px; width: 100%; max-width: 800px; flex-shrink: 0;
+        }
+        .tab-dugme {
+            flex: 1; background: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3);
+            height: 40px; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+        }
+        .tab-dugme.aktivan {
+            background-color: #ffffff; color: #000000; border-color: #ffffff;
+        }
+
+        /* Okvir za plejer */
         .plejer-okvir {
-            width: 100%;
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
-            background-color: #111;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+            width: 100%; max-width: 800px; aspect-ratio: 16 / 9; background-color: #111;
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 8px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); flex-shrink: 0;
         }
+        .plejer-okvir iframe, .plejer-okvir video { width: 100%; height: 100%; border: none; object-fit: contain; }
 
-        /* Sam video element */
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Da se vidi ceo video bez sečenja */
+        /* Kontrole za YouTube */
+        .youtube-kontrole { display: none; width: 100%; max-width: 800px; gap: 10px; flex-shrink: 0; }
+        .youtube-kontrole.aktivan { display: flex; }
+
+        /* Kontrole za lokalni fajl */
+        .lokalni-kontrole { display: none; width: 100%; max-width: 800px; gap: 10px; flex-shrink: 0; }
+        .lokalni-kontrole.aktivan { display: flex; }
+        input[type="file"] { display: none; }
+
+        /* Zajednički stil za input i dugmad */
+        #link-input {
+            flex: 1; height: 46px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff; padding: 10px 15px; font-family: 'EB Garamond', serif; font-size: 16px;
+            outline: none; border-radius: 4px; text-align: center;
         }
-
-        /* Polje za unos fajla */
-        .unos-fajla {
-            display: flex;
-            width: 100%;
-            max-width: 800px;
-            gap: 10px;
-            align-items: center;
+        .akciono-dugme {
+            background-color: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.5);
+            height: 46px; padding: 0 25px; font-family: 'Cinzel', serif; font-size: 12px;
+            letter-spacing: 2px; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+            white-space: nowrap; text-transform: uppercase; display: flex; align-items: center; justify-content: center;
         }
+        .akciono-dugme:hover, .akciono-dugme:active { background-color: #ffffff; color: #000000; }
 
-        /* Sakrivamo ružno default dugme za izbor fajla */
-        input[type="file"] {
-            display: none;
-        }
-
-        /* Naše lepo dugme za izbor fajla */
-        .dugme-izbor {
-            background-color: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            height: 36px;
-            padding: 0 20px;
-            font-family: 'Cinzel', serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 4px;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            width: 100%;
-        }
-
-        .dugme-izbor:hover, .dugme-izbor:active {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        /* Prilagođavanje za mobilne telefone */
+        /* Prilagođavanje za mobilne */
         @media (max-width: 600px) {
-            .nav-dugme {
-                font-size: 10px;
-                padding: 0 10px;
-            }
-            .zaglavlje {
-                gap: 8px;
-            }
+            .nav-dugme { font-size: 10px; padding: 0 10px; }
+            .zaglavlje { gap: 8px; }
+            .youtube-kontrole, .lokalni-kontrole { flex-direction: column; }
+            #link-input, .akciono-dugme { width: 100%; }
         }
     </style>
 </head>
@@ -154,43 +94,108 @@
 
     <div class="zaglavlje">
         <a href="index.html" class="nav-dugme">Home</a>
-        <a href="ulaz.html" class="nav-dugme">Portal</a>
         <a href="chat.html" class="nav-dugme">Chat</a>
-        <a href="video.html" class="nav-dugme">Video</a>
+        <a href="tekst.html" class="nav-dugme">Tekst</a>
+        <a href="audio.html" class="nav-dugme">Audio</a>
     </div>
 
     <div class="video-kontejner">
-        <!-- Ovde će se učitati video sa tvog računara -->
-        <div class="plejer-okvir">
-            <video id="lokalni-plejer" controls>
-                Tvoj pregledač ne podržava video tag.
-            </video>
+        <!-- Tabovi za izbor izvora -->
+        <div class="tabovi">
+            <button class="tab-dugme aktivan" id="tab-youtube">YouTube</button>
+            <button class="tab-dugme" id="tab-lokalni">Lokalni Fajl</button>
         </div>
 
-        <!-- Dugme za izbor fajla -->
-        <div class="unos-fajla">
+        <!-- Plejer -->
+        <div class="plejer-okvir" id="plejer">
+            <!-- Ovde se ubacuje iframe (YouTube) ili video tag (Lokalno) -->
+        </div>
+
+        <!-- Kontrole za YouTube -->
+        <div class="youtube-kontrole aktivan" id="kontrole-youtube">
+            <input type="text" id="link-input" placeholder="Zalepi YouTube link..." autocomplete="off">
+            <button class="akciono-dugme" id="pusti-youtube">PLAY</button>
+        </div>
+
+        <!-- Kontrole za lokalni fajl -->
+        <div class="lokalni-kontrole" id="kontrole-lokalni">
             <input type="file" id="izbor-fajla" accept="video/*">
-            <label for="izbor-fajla" class="dugme-izbor">IZABERI VIDEO SA UREĐAJA</label>
+            <label for="izbor-fajla" class="akciono-dugme" style="width: 100%;">IZABERI VIDEO SA UREĐAJA</label>
         </div>
     </div>
 
     <script>
-        const videoPlejer = document.getElementById('lokalni-plejer');
+        // Elementi
+        const plejer = document.getElementById('plejer');
+        const tabYoutube = document.getElementById('tab-youtube');
+        const tabLokalni = document.getElementById('tab-lokalni');
+        const kontroleYoutube = document.getElementById('kontrole-youtube');
+        const kontroleLokalni = document.getElementById('kontrole-lokalni');
+        
+        const linkInput = document.getElementById('link-input');
+        const dugmePusti = document.getElementById('pusti-youtube');
         const izborFajla = document.getElementById('izbor-fajla');
 
-        // Kada korisnik izabere fajl, učitavamo ga u video plejer
-        izborFajla.addEventListener('change', function(event) {
-            const fajl = event.target.files[0]; // Uzimamo prvi izabrani fajl
+        // --- LOGIKA ZA TABOVE ---
+        tabYoutube.addEventListener('click', () => {
+            tabYoutube.classList.add('aktivan');
+            tabLokalni.classList.remove('aktivan');
+            kontroleYoutube.classList.add('aktivan');
+            kontroleLokalni.classList.remove('aktivan');
             
+            // Resetujemo plejer na prazno
+            plejer.innerHTML = '';
+        });
+
+        tabLokalni.addEventListener('click', () => {
+            tabLokalni.classList.add('aktivan');
+            tabYoutube.classList.remove('aktivan');
+            kontroleLokalni.classList.add('aktivan');
+            kontroleYoutube.classList.remove('aktivan');
+            
+            // Resetujemo plejer i ubacujemo prazan video tag
+            plejer.innerHTML = '<video id="lokalni-video" controls style="width:100%; height:100%;"></video>';
+        });
+
+        // --- LOGIKA ZA YOUTUBE ---
+        function pustiYouTube() {
+            const link = linkInput.value.trim();
+            if (link === "") { alert("Zalepi YouTube link!"); return; }
+            
+            let videoId = null;
+            if (link.includes('youtube.com/watch?v=')) videoId = link.split('v=')[1]?.split('&')[0];
+            else if (link.includes('youtu.be/')) videoId = link.split('youtu.be/')[1]?.split('?')[0];
+            else if (link.includes('youtube.com/shorts/')) videoId = link.split('shorts/')[1]?.split('?')[0];
+            else if (link.includes('youtube.com/embed/')) videoId = link.split('embed/')[1]?.split('?')[0];
+
+            if (videoId) {
+                plejer.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+                linkInput.value = "";
+            } else {
+                alert("Link nije prepoznat.");
+            }
+        }
+
+        dugmePusti.addEventListener('click', pustiYouTube);
+        linkInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') pustiYouTube(); });
+
+        // --- LOGIKA ZA LOKALNI FAJL ---
+        izborFajla.addEventListener('change', function(event) {
+            const fajl = event.target.files[0];
             if (fajl) {
-                // Kreiramo privremeni URL za taj fajl na tvom računaru
-                const urlFajla = URL.createObjectURL(fajl);
-                
-                // Postavljamo taj URL kao izvor za video plejer
-                videoPlejer.src = urlFajla;
-                
-                // Puštamo video automatski (opciono)
-                videoPlejer.play();
+                // Pronalazimo video tag unutar plejera
+                const lokalniVideo = document.getElementById('lokalni-video');
+                if (lokalniVideo) {
+                    const urlFajla = URL.createObjectURL(fajl);
+                    lokalniVideo.src = urlFajla;
+                    lokalniVideo.play();
+                }
             }
         });
     </script>
