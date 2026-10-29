@@ -23,6 +23,7 @@ html, body {
     background-color: #000000;
     z-index: 10;
     position: relative;
+    height: 70px; /* Fiksiramo visinu zaglavlja da ništa ne bi skakalo */
 }
 
 .zaglavlje h1 {
@@ -32,43 +33,63 @@ html, body {
     text-transform: uppercase;
     color: #ffffff;
     margin: 0;
+    line-height: 30px; /* Poravnavanje naslova po visini */
 }
 
-/* NOVO DUGME HOME (Levi ugao) */
+/* DUGME HOME - Levi ugao */
 .nav-home {
-    position: absolute;
-    left: 20px;
-    top: 18px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #ffffff;
+    position: absolute !important;
+    left: 20px !important;
+    top: 18px !important;
+    
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 28px; /* Fiksna visina da se poravna sa DELETE */
+    
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    color: #ffffff !important; /* Strogo bela boja */
+    text-decoration: none !important; /* Skida podvlačenje */
+    
     font-family: 'Cinzel', serif;
     font-size: 10px;
-    padding: 5px 10px;
+    padding: 0 12px;
     border-radius: 4px;
     cursor: pointer;
     letter-spacing: 1px;
-    text-decoration: none;
     transition: all 0.3s;
 }
 
-.nav-home:hover, .nav-home:active {
-    background-color: #ffffff;
-    color: #000;
-    border-color: #ffffff;
+/* Sprečavamo ljubičastu boju za posećene linkove */
+.nav-home:visited {
+    color: #ffffff !important;
 }
 
-/* DUGME DELETE U ZAGLAVLJU (Desni ugao) */
+.nav-home:hover, .nav-home:active {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+/* DUGME DELETE - Desni ugao */
 #obrisi-sve {
-    position: absolute;
-    right: 20px;
-    top: 18px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #ffffff;
+    position: absolute !important;
+    right: 20px !important;
+    top: 18px !important;
+    
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 28px; /* Ista visina kao HOME */
+    
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    color: #ffffff !important;
+    
     font-family: 'Cinzel', serif;
     font-size: 10px;
-    padding: 5px 10px;
+    padding: 0 12px;
     border-radius: 4px;
     cursor: pointer;
     letter-spacing: 1px;
@@ -76,9 +97,9 @@ html, body {
 }
 
 #obrisi-sve:hover, #obrisi-sve:active {
-    background-color: #ffffff;
-    color: #000;
-    border-color: #ffffff;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
 }
 
 /* Prostor za poruke */
