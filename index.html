@@ -24,8 +24,6 @@
             color: #ffffff;
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
         }
 
@@ -33,49 +31,49 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            /* SADA JE NA VRHU, A NE U CENTRU */
+            justify-content: flex-start; 
+            padding-top: 60px; /* Razmak od gornje ivice ekrana */
             height: 100%;
             width: 100%;
-            padding: 20px;
             text-align: center;
         }
 
-        /* NASLOV (Gore, centriran) */
+        /* NASLOV */
         .ime-monaha {
-            font-size: 56px; /* Veliki naslov kao CHANEL */
+            font-size: 48px;
             font-weight: 600;
-            letter-spacing: 10px;
+            letter-spacing: 12px; /* Veći razmak za luksuzan izgled */
             color: #ffffff;
-            margin-bottom: 40px; /* Razmak do menija */
+            margin-bottom: 25px; /* Razmak do menija */
         }
 
         /* KONTEJNER ZA NAVIGACIJU (Horizontalni meni) */
         .dugmad-kontejner {
             display: flex;
-            flex-direction: row; /* Ovo sada radi ispravno - redja u jedan red */
-            flex-wrap: wrap; /* Ako je ekran manji, prelazi u novi red */
+            flex-direction: row;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 40px; /* Veći razmak između reči, kao na Chanel-u */
+            gap: 35px; /* Razmak između reči */
             width: 100%;
-            max-width: 1100px;
+            padding: 0 20px;
         }
 
         /* STIL DUGMADI (Čiste reči) */
         .dugme-monah {
             display: inline-block;
-            color: #888888; /* Siva boja */
+            color: #888888;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
-            letter-spacing: 3px; /* Razmak između slova u reči */
+            letter-spacing: 3px;
             transition: color 0.3s ease;
             background-color: transparent;
             border: none;
             padding: 5px 0;
-            position: relative; /* Za liniju ispod */
+            position: relative;
         }
 
-        /* Efekat na hover */
         .dugme-monah:hover, .dugme-monah:active {
             color: #ffffff;
         }
@@ -85,8 +83,8 @@
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            bottom: -5px;
+            height: 1.5px; /* Malo tanja linija za eleganciju */
+            bottom: -3px;
             left: 0;
             background-color: #ffffff;
             transition: width 0.3s ease;
@@ -101,9 +99,10 @@
 <body>
 
     <div class="stranica">
+        <!-- Naslov na vrhu -->
         <h1 class="ime-monaha">Aleksandar</h1>
         
-        <!-- Horizontalni meni -->
+        <!-- Meni odmah ispod naslova -->
         <div class="dugmad-kontejner">
             <a href="ulaz.html" class="dugme-monah">Portal</a>
             <a href="video.html" class="dugme-monah">YouTube</a>
