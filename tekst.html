@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aleksandar — Tekstovi</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            background-color: #000000; height: 100%; width: 100%; color: #ffffff;
+            font-family: 'EB Garamond', serif; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* Zaglavlje */
+        .zaglavlje {
+            display: flex; justify-content: center; align-items: center; padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); background-color: #000000; z-index: 10; gap: 15px; height: 60px;
+        }
+        .nav-dugme {
+            color: #ffffff; text-decoration: none; font-family: 'Cinzel', serif; font-size: 12px;
+            letter-spacing: 2px; text-transform: uppercase; padding: 0 15px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 4px; transition: all 0.3s ease;
+            background-color: transparent; white-space: nowrap;
+        }
+        .nav-dugme:hover, .nav-dugme:active { background-color: #ffffff; color: #000000; border-color: #ffffff; }
+
+        /* Glavni kontejner */
+        .tekst-kontejner {
+            flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px;
+            gap: 20px; overflow-y: auto;
+        }
+
+        /* Polje za unos teksta */
+        .unos-teksta {
+            width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
+        }
+        #tekst-input {
+            width: 100%; height: 120px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff; padding: 15px; font-family: 'EB Garamond', serif; font-size: 16px;
+            outline: none; border-radius: 4px; resize: none;
+        }
+        #tekst-input::placeholder { color: rgba(255, 255, 255, 0.3); font-style: italic; }
+        
+        #sacuvaj-dugme {
+            background-color: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.5);
+            height: 36px; padding: 0 20px; font-family: 'Cinzel', serif; font-size: 12px;
+            letter-spacing: 2px; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+            text-transform: uppercase; align-self: flex-end;
+        }
+        #sacuvaj-dugme:hover, #sacuvaj-dugme:active { background-color: #ffffff; color: #000000; }
+
+        /* Lista sačuvanih tekstova */
+        .lista-tekstova { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .tekst-stavka {
+            background-color: #111; border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px;
+            border-radius: 6px; position: relative; transition: all 0.3s;
+        }
+        .tekst-stavka:hover { border-color: rgba(255, 255, 255, 0.3); }
+        
+        .tekst-sadrzaj {
+            font-family: 'EB Garamond', serif; font-size: 16px; line-height: 1.5;
+            white-space: pre-wrap; /* Čuva razmake i nove redove */ word-wrap: break-word;
+        }
+        .tekst-datum {
+            font-size: 11px; color: rgba(255, 255, 255, 0.3); margin-top: 10px;
+            font-family: 'Cinzel', serif; letter-spacing: 1px;
+        }
+        .obrisi-tekst {
+            position: absolute; top: 10px; right: 10px; background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.5);
+            font-size: 10px; padding: 3px 8px; border-radius: 4px; cursor: pointer; transition: all 0.3s;
+        }
+        .obrisi-tekst:hover { background-color: #ff4444; color: #ffffff; border-color: #ff4444; }
+        
+        .prazno-stanje { text-align: center; color: rgba(255, 255, 255, 0.2); font-style: italic; margin-top: 20px; }
+
+        @media (max-width: 600px) {
+            .nav-dugme { font-size: 10px; padding: 0 10px; }
+            .zaglavlje { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="zaglavlje">
+        <a href="index.html" class="nav-dugme">Home</a>
+        <a href="player.html" class="nav-dugme">Player</a>
+        <a href="chat.html" class="nav-dugme">Chat</a>
+        <a href="video.html" class="nav-dugme">Video</a>
+    </div>
+
+    <div class="tekst-kontejner">
+        <!-- Polje za unos -->
+        <div class="unos-teksta">
+            <textarea id="tekst-input" placeholder="Zalepi ovde tekst koji želiš da sačuvaš..."></textarea>
+            <button id="sacuvaj-dugme">SAČUVAJ</button>
+        </div>
+
+        <!-- Lista sačuvanih tekstova -->
+        <div class="lista-tekstova" id="lista-tekstova">
+            <!-- Ovde će se prikazivati tekstovi -->
+        </div>
+    </div>
+
+    <script>
+        const tekstInput = document.getElementById('tekst-input');
+        const sacuvajDugme = document.getElementById('sacuvaj-dugme');
+        const listaTekstova = document.getElementById('lista-tekstova');
+
+        // Uzimamo sačuvane tekstove iz LocalStorage-a
+        let sacuvaniTekstovi = JSON.parse(localStorage.getItem('mojiTekstovi')) || [];
+
+        // Funkcija za prikaz tekstova
+        function prikaziTekstove() {
+            listaTekstova.innerHTML = "";
+
+            if (sacuvaniTekstovi.length === 0) {
+                listaTekstova.innerHTML = `<p class="prazno-stanje">Još uvek nema sačuvanih tekstova.</p>`;
+                return;
+            }
+
+            sacuvaniTekstovi.forEach((tekst, index) => {
+                const stavka = document.createElement('div');
+                stavka.className = 'tekst-stavka';
+                
+                // Formatiranje datuma
+                const datum = new Date(tekst.datum).toLocaleString('sr-RS', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' 
+                });
+
+                stavka.innerHTML = `
+                    <div class="tekst-sadrzaj">${tekst.sadrzaj}</div>
+                    <div class="tekst-datum">Sačuvano: ${datum}</div>
+                    <button class="obrisi-tekst" data-index="${index}">OBRIŠI</button>
+                `;
+                
+                listaTekstova.appendChild(stavka);
+            });
+
+            // Dodajemo event listener za sve dugmiće za brisanje
+            document.querySelectorAll('.obrisi-tekst').forEach(dugme => {
+                dugme.addEventListener('click', (e) => {
+                    const indexZaBrisanje = e.target.getAttribute('data-index');
+                    obrisiTekst(indexZaBrisanje);
+                });
+            });
+        }
+
+        // Funkcija za čuvanje teksta
+        function sacuvajTekst() {
+            const sadrzaj = tekstInput.value.trim();
+            
+            if (sadrzaj === "") {
+                alert("Nema teksta za čuvanje!");
+                return;
+            }
+
+            // Dodajemo novi tekst na početak liste
+            sacuvaniTekstovi.unshift({
+                sadrzaj: sadrzaj,
+                datum: new Date().toISOString()
+            });
+
+            // Čuvamo u LocalStorage
+            localStorage.setItem('mojiTekstovi', JSON.stringify(sacuvaniTekstovi));
+            
+            // Čistimo polje i osvežavamo prikaz
+            tekstInput.value = "";
+            prikaziTekstove();
+        }
+
+        // Funkcija za brisanje teksta
+        function obrisiTekst(index) {
+            if (confirm("Da li želiš da obrišeš ovaj tekst?")) {
+                sacuvaniTekstovi.splice(index, 1);
+                localStorage.setItem('mojiTekstovi', JSON.stringify(sacuvaniTekstovi));
+                prikaziTekstove();
+            }
+        }
+
+        // Event listener za dugme
+        sacuvajDugme.addEventListener('click', sacuvajTekst);
+
+        // Prikazujemo tekstove čim se stranica učita
+        prikaziTekstove();
+    </script>
+
+</body>
+</html>
