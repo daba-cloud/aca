@@ -9,18 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- OVO JE OBAVEZNO DA BI SAJT BIO CRN -->
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
 
     <div class="zaglavlje">
-        <!-- ZAMENJENA STRELICA SA HOME DUGMETOM -->
         <a href="index.html" class="nav-home">HOME</a>
-        
         <h1>Chat</h1>
-        
-        <!-- DUGME DELETE -->
         <button id="obrisi-sve" title="Obriši sve poruke">DELETE</button>
     </div>
 
@@ -29,7 +24,8 @@
     <div class="unos">
         <input type="text" id="ime" placeholder="Ime..." maxlength="15" autocomplete="off">
         <input type="text" id="tekst-poruke" placeholder="Napiši poruku..." maxlength="200" autocomplete="off">
-        <button id="posalji">Pošalji</button>
+        <!-- IZMENJENO: Umesto Pošalji sada piše SEND -->
+        <button id="posalji">SEND</button>
     </div>
 
     <script type="module">
@@ -50,7 +46,6 @@
         const inputPoruka = document.getElementById('tekst-poruke');
         const kontejnerPoruka = document.getElementById('poruke');
 
-        // Pamćenje imena
         const sacuvanoIme = localStorage.getItem('mojeIme');
         if (sacuvanoIme) {
             inputIme.value = sacuvanoIme;
@@ -60,7 +55,6 @@
             localStorage.setItem('mojeIme', inputIme.value.trim());
         });
 
-        // Slanje poruke
         dugme.addEventListener('click', () => {
             const ime = inputIme.value.trim();
             const tekst = inputPoruka.value.trim();
@@ -86,7 +80,6 @@
             if (e.key === 'Enter') dugme.click();
         });
 
-        // Primanje poruka
         onValue(porukeRef, (snapshot) => {
             kontejnerPoruka.innerHTML = ""; 
 
@@ -105,7 +98,6 @@
             kontejnerPoruka.scrollTop = kontejnerPoruka.scrollHeight;
         });
 
-        // Brisanje pojedinačne poruke (klik na poruku)
         kontejnerPoruka.addEventListener('click', (e) => {
             const porukaDiv = e.target.closest('.poruka');
             if (porukaDiv) {
@@ -120,7 +112,6 @@
             }
         });
 
-        // Brisanje CELOG četa (klik na DELETE)
         dugmeObrisiSve.addEventListener('click', () => {
             if (confirm("Da li si SIGURAN da želiš da obrišeš SVE poruke?")) {
                 remove(porukeRef)
