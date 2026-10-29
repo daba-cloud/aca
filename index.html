@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="la">
+<html lang="sr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aleksandar</title>
     
+    <!-- Učitavanje Barlow Condensed fonta -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== OSNOVNI STILOVI ===== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -18,15 +18,17 @@
         }
 
         html, body {
-            background-color: #000000;
+            background-color: #000000; /* Crna pozadina */
             height: 100%;
             width: 100%;
-            color: #ffffff;
-            font-family: 'EB Garamond', serif;
+            color: #ffffff; /* Bela slova */
+            font-family: 'Barlow Condensed', sans-serif; /* Novi font za sve */
+            text-transform: uppercase; /* SVE VELIKIM SLOVIMA */
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        /* ===== GLAVNI KONTEJNER ===== */
         .stranica {
             display: flex;
             flex-direction: column;
@@ -34,95 +36,62 @@
             justify-content: center;
             height: 100%;
             width: 100%;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
 
-        /* ===== NASLOV ===== */
+        /* NASLOV - Umesto CHANEL piše ALEKSANDAR */
         .ime-monaha {
-            font-family: 'Cinzel', serif;
-            font-size: 34px; /* Smanjeno sa 38px da bi sve stalo */
-            font-weight: 600;
-            letter-spacing: 6px;
-            color: #e8e8e8;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+            font-size: 52px; /* Veliki naslov */
+            font-weight: 600; /* Bold */
+            letter-spacing: 8px; /* Razmak između slova kao na Chanel-u */
+            color: #ffffff;
+            margin-bottom: 50px; /* Razmak do menija */
         }
 
-        /* ===== PODNASLOV ===== */
-        .podnaslov {
-            font-family: 'EB Garamond', serif;
-            font-size: 14px; /* Smanjeno sa 16px */
-            font-style: italic;
-            letter-spacing: 2px;
-            color: #888888;
-            margin-bottom: 20px; /* Smanjeno sa 25px */
-        }
-
-        /* ===== KONTEJNER ZA DUGMAD ===== */
+        /* KONTEJNER ZA NAVIGACIJU */
         .dugmad-kontejner {
             display: flex;
             flex-direction: column;
-            gap: 6px; /* Smanjen razmak sa 8px na 6px */
+            gap: 18px; /* Razmak između reči */
             align-items: center;
         }
 
-        /* ===== STIL DUGMADI ===== */
+        /* STIL DUGMADI - Sada su to samo čiste reči */
         .dugme-monah {
             display: inline-block;
-            color: #e8e8e8;
+            color: #888888; /* Siva boja dok nije aktivno */
             text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 11px; /* Smanjeno sa 12px */
+            font-size: 18px;
             font-weight: 400;
-            letter-spacing: 4px;
-            padding: 10px 40px; /* Smanjen padding */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            transition: all 0.5s ease;
-            text-transform: uppercase;
+            letter-spacing: 5px; /* Veći razmak za elegantniji izgled */
+            transition: color 0.3s ease, transform 0.3s ease;
             background-color: transparent;
-            min-width: 180px; /* Smanjeno sa 200px */
+            border: none; /* NEMA OKVIRA */
+            padding: 5px 10px;
         }
 
-        .dugme-monah:active,
-        .dugme-monah:hover {
-            background-color: #e8e8e8;
-            color: #000000;
-            border-color: #e8e8e8;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        /* Efekat kada pređeš mišem preko reči */
+        .dugme-monah:hover, .dugme-monah:active {
+            color: #ffffff; /* Postaje belo */
+            transform: scale(1.05); /* Blago uvećanje */
         }
     </style>
 </head>
 <body>
 
     <div class="stranica">
-        <!-- Ime monaha -->
+        <!-- Glavni naslov -->
         <h1 class="ime-monaha">Aleksandar</h1>
         
-        <!-- Latinski podnaslov -->
-        <p class="podnaslov">Acta · Non Verba</p>
-        
-        <!-- DUGMAD -->
+        <!-- Navigacija (Reči umesto dugmadi) -->
         <div class="dugmad-kontejner">
-            <!-- Dugme Portal -->
             <a href="ulaz.html" class="dugme-monah">Portal</a>
-            
-            <!-- Dugme Chat -->
-            <a href="chat.html" class="dugme-monah">Chat</a>
-
-            <!-- Dugme Video -->
-            <a href="video.html" class="dugme-monah">Video</a>
-
-            <!-- Dugme Player -->
-            <a href="player.html" class="dugme-monah">Player</a>
-
-            <!-- Dugme Tekst -->
-            <a href="tekst.html" class="dugme-monah">Tekst</a>
-
-            <!-- NOVO: Dugme Audio -->
+            <a href="video.html" class="dugme-monah">YouTube</a>
+            <a href="player.html" class="dugme-monah">Video</a>
+            <a href="#" class="dugme-monah">Blog</a>
+            <a href="#" class="dugme-monah">News</a>
+            <a href="tekst.html" class="dugme-monah">Notes</a>
             <a href="audio.html" class="dugme-monah">Audio</a>
         </div>
     </div>
