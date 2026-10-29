@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aleksandar — Audio Player</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            background-color: #000000;
+            height: 100%;
+            width: 100%;
+            color: #ffffff;
+            font-family: 'EB Garamond', serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Zaglavlje sa navigacijom */
+        .zaglavlje {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: #000000;
+            z-index: 10;
+            gap: 15px;
+            height: 60px;
+        }
+
+        .nav-dugme {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0 15px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            white-space: nowrap;
+        }
+
+        .nav-dugme:hover, .nav-dugme:active {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        /* Glavni kontejner */
+        .audio-kontejner {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        /* Okvir za audio plejer */
+        .plejer-okvir {
+            width: 100%;
+            max-width: 600px;
+            background-color: #111;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Ikonica ili naziv fajla */
+        .audio-info {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* Sam audio element */
+        audio {
+            width: 100%;
+            outline: none;
+        }
+
+        /* Stilizacija audio kontrole (za WebKit pregledače - Chrome, Safari, Edge) */
+        audio::-webkit-media-controls-panel {
+            background-color: #111;
+        }
+        audio::-webkit-media-controls-play-button,
+        audio::-webkit-media-controls-volume-slider {
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+
+        /* Polje za unos fajla */
+        .unos-fajla {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Sakrivamo ružno default dugme za izbor fajla */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Naše lepo dugme za izbor fajla */
+        .dugme-izbor {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            height: 36px;
+            padding: 0 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .dugme-izbor:hover, .dugme-izbor:active {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Prilagođavanje za mobilne telefone */
+        @media (max-width: 600px) {
+            .nav-dugme {
+                font-size: 10px;
+                padding: 0 10px;
+            }
+            .zaglavlje {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="zaglavlje">
+        <a href="index.html" class="nav-dugme">Home</a>
+        <a href="player.html" class="nav-dugme">Player</a>
+        <a href="chat.html" class="nav-dugme">Chat</a>
+        <a href="video.html" class="nav-dugme">Video</a>
+        <a href="audio.html" class="nav-dugme">Audio</a>
+    </div>
+
+    <div class="audio-kontejner">
+        <!-- Ovde će se učitati audio sa tvog računara -->
+        <div class="plejer-okvir">
+            <div class="audio-info" id="audio-info">Nema učitanog audio fajla</div>
+            <audio id="lokalni-audio" controls>
+                Tvoj pregledač ne podržava audio tag.
+            </audio>
+        </div>
+
+        <!-- Dugme za izbor fajla -->
+        <div class="unos-fajla">
+            <input type="file" id="izbor-fajla" accept="audio/*">
+            <label for="izbor-fajla" class="dugme-izbor">IZABERI AUDIO SA UREĐAJA</label>
+        </div>
+    </div>
+
+    <script>
+        const audioPlejer = document.getElementById('lokalni-audio');
+        const izborFajla = document.getElementById('izbor-fajla');
+        const audioInfo = document.getElementById('audio-info');
+
+        // Kada korisnik izabere fajl, učitavamo ga u audio plejer
+        izborFajla.addEventListener('change', function(event) {
+            const fajl = event.target.files[0]; // Uzimamo prvi izabrani fajl
+            
+            if (fajl) {
+                // Kreiramo privremeni URL za taj fajl na tvom računaru
+                const urlFajla = URL.createObjectURL(fajl);
+                
+                // Postavljamo taj URL kao izvor za audio plejer
+                audioPlejer.src = urlFajla;
+                
+                // Prikazujemo naziv fajla
+                audioInfo.textContent = fajl.name;
+                
+                // Puštamo audio automatski
+                audioPlejer.play();
+            }
+        });
+    </script>
+
+</body>
+</html>
