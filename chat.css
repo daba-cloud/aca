@@ -18,12 +18,15 @@ html, body {
 /* Zaglavlje */
 .zaglavlje {
     text-align: center;
-    padding: 20px;
+    padding: 15px 20px; /* Malo smanjen padding da se poravna sa novom visinom dugmadi */
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     background-color: #000000;
     z-index: 10;
     position: relative;
-    height: 70px; /* Fiksiramo visinu zaglavlja da ništa ne bi skakalo */
+    height: 60px; /* Fiksna visina zaglavlja */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .zaglavlje h1 {
@@ -33,73 +36,56 @@ html, body {
     text-transform: uppercase;
     color: #ffffff;
     margin: 0;
-    line-height: 30px; /* Poravnavanje naslova po visini */
 }
 
-/* DUGME HOME - Levi ugao */
-.nav-home {
-    position: absolute !important;
-    left: 20px !important;
-    top: 18px !important;
+/* ZAJEDNIČKI STIL ZA HOME I DELETE DUGMAD */
+.nav-home, #obrisi-sve {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Savršeno vertikalno centriranje */
     
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 28px; /* Fiksna visina da se poravna sa DELETE */
+    height: 36px; /* Visina identična visini polja za unos */
     
-    background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    color: #ffffff !important; /* Strogo bela boja */
-    text-decoration: none !important; /* Skida podvlačenje */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff !important;
+    text-decoration: none !important;
     
     font-family: 'Cinzel', serif;
-    font-size: 10px;
-    padding: 0 12px;
+    font-size: 12px; /* Ista veličina slova kao SEND */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    
+    padding: 0 15px;
     border-radius: 4px;
     cursor: pointer;
-    letter-spacing: 1px;
     transition: all 0.3s;
+}
+
+/* Specifično pozicioniranje HOME (levo) */
+.nav-home {
+    left: 20px;
+}
+
+/* Specifično pozicioniranje DELETE (desno) */
+#obrisi-sve {
+    right: 20px;
+}
+
+/* Efekat na klik/hover za oba dugmeta */
+.nav-home:hover, .nav-home:active,
+#obrisi-sve:hover, #obrisi-sve:active {
+    background-color: #ffffff;
+    color: #000000 !important;
+    border-color: #ffffff;
 }
 
 /* Sprečavamo ljubičastu boju za posećene linkove */
 .nav-home:visited {
     color: #ffffff !important;
-}
-
-.nav-home:hover, .nav-home:active {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border-color: #ffffff !important;
-}
-
-/* DUGME DELETE - Desni ugao */
-#obrisi-sve {
-    position: absolute !important;
-    right: 20px !important;
-    top: 18px !important;
-    
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    height: 28px; /* Ista visina kao HOME */
-    
-    background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    color: #ffffff !important;
-    
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    padding: 0 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    letter-spacing: 1px;
-    transition: all 0.3s;
-}
-
-#obrisi-sve:hover, #obrisi-sve:active {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border-color: #ffffff !important;
 }
 
 /* Prostor za poruke */
@@ -159,11 +145,11 @@ html, body {
 /* Polje za ime */
 #ime {
     width: 55px;
-    height: 46px;
+    height: 36px; /* Smanjeno sa 46px na 36px da bude u ravni sa novim dugmadima */
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
-    padding: 10px 5px;
+    padding: 0 5px;
     font-family: 'EB Garamond', serif;
     font-size: 16px;
     outline: none;
@@ -174,11 +160,11 @@ html, body {
 /* Polje za tekst poruke */
 #tekst-poruke {
     flex: 1;
-    height: 46px;
+    height: 36px; /* Smanjeno sa 46px na 36px */
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
-    padding: 10px;
+    padding: 0 15px;
     font-family: 'EB Garamond', serif;
     font-size: 18px;
     outline: none;
@@ -190,16 +176,17 @@ html, body {
     color: rgba(255, 255, 255, 0.3);
 }
 
-/* Dugme Pošalji */
+/* Dugme SEND */
 #posalji {
     background-color: transparent;
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    height: 46px;
+    height: 36px; /* Ista visina kao HOME i DELETE */
     padding: 0 15px;
     font-family: 'Cinzel', serif;
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-size: 12px; /* Ista veličina slova kao HOME i DELETE */
+    letter-spacing: 2px;
+    text-transform: uppercase; /* Osigurava velika slova */
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 4px;
@@ -211,5 +198,5 @@ html, body {
 
 #posalji:active, #posalji:hover {
     background-color: #ffffff;
-    color: #000;
+    color: #000000;
 }
